@@ -1,7 +1,7 @@
 {
     "$$DIRECTORY": {
-        "GameDirectory": "E:\\Program Files (x86)\\Steam\\steamapps\\common\\Grand Theft Auto V",
-        "TrainerDirectory": "E:\\Program Files (x86)\\Steam\\steamapps\\common\\02f761-PC Trainer V 1.1"
+        "GTAV": "E:\\Program Files (x86)\\Steam\\steamapps\\common\\Grand Theft Auto V",
+        "Trainer": "E:\\Program Files (x86)\\Steam\\steamapps\\common\\02f761-PC Trainer V 1.1"
     },
     "$$BACKUPS": {
         "GTAVTrainer": "",

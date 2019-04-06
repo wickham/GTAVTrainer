@@ -10,19 +10,37 @@ TRAINER_DIR = ''
 GTA_DIR = ''
 
 
+def set_directory(working_file):
+    with open(working_file, 'r') as file:
+        json_args = json.load(file)
+    for key in json_args.keys():
+        if key == "$$DIRECTORY":
+            print("{}".format(key.value()))
+    file.close()
+    return
+
+
 def read_pref():
     color_init()
     root_path = os.getcwd()
     print("Here we go.")
     if os.name == "nt":
         pref_folder = PureWindowsPath(root_path+"\\preferences")
+        pref_file = str(pref_folder) + "\\wrkdirs.json"
     else:
         pref_folder = Path(pref_folder)
+        pref_file = Path(pref_file)
 
     print("\033[1;32;40m" + "Found!" + "\033[1;36;40m" + "{: >100}".format(str(pref_folder)))
     print(Style.RESET_ALL)
 
-    json_args = json.dumps(_file)
+    pref_file = str(pref_folder) + "\\wrkdirs.json"
+    # json_args = json.dumps(pref_file)
+    # with open(pref_file, 'r') as file:
+    #     json_args = json.load(file)
+    #     print(json.dumps(json_args, indent=4, sort_keys=True))
+    # file.close()
+    return pref_file
 
 ## Text menu in Python
 def clear():
