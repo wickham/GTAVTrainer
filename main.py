@@ -1,11 +1,28 @@
 #!/usr/bin/python
 """Program for setting up and removing trainer."""
 
-import os, shutil, time, textwrap
+import os, shutil, time, textwrap, json
+from pathlib import Path, PureWindowsPath
+from colorama import init as color_init
+from colorama import Style
 
-TRAINER_DIR = 'E:\\Program Files (x86)\\Steam\\steamapps\\common\\02f761-PC Trainer V 1.1'
-GTA_DIR = 'E:\\Program Files (x86)\\Steam\\steamapps\\common\\Grand Theft Auto V'
+TRAINER_DIR = ''
+GTA_DIR = ''
 
+
+def read_pref():
+    color_init()
+    root_path = os.getcwd()
+    print("Here we go.")
+    if os.name == "nt":
+        pref_folder = PureWindowsPath(root_path+"\\preferences")
+    else:
+        pref_folder = Path(pref_folder)
+
+    print("\033[1;32;40m" + "Found!" + "\033[1;36;40m" + "{: >100}".format(str(pref_folder)))
+    print(Style.RESET_ALL)
+
+    json_args = json.dumps(_file)
 
 ## Text menu in Python
 def clear():
