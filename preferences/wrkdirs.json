@@ -4,11 +4,6 @@
         "Trainer": "E:\\Program Files (x86)\\Steam\\steamapps\\common\\02f761-PC Trainer V 1.1"
     },
     "$$BACKUPS": {
-<<<<<<< HEAD
-        "GTAVTrainer": "",
-        "GTAV": "",
-        "Trainer": ""
-=======
         "MODS": {
             "mod0": {
                 "name": "_name",
@@ -45,6 +40,5 @@
                 "file_path": ""
             },
         }
->>>>>>> master
     }
 }
