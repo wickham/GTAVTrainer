@@ -1,0 +1,44 @@
+{
+    "$$DIRECTORY": {
+        "GTAV": "E:\\Program Files (x86)\\Steam\\steamapps\\common\\Grand Theft Auto V",
+        "Trainer": "E:\\Program Files (x86)\\Steam\\steamapps\\common\\02f761-PC Trainer V 1.1"
+    },
+    "$$BACKUPS": {
+        "MODS": {
+            "mod0": {
+                "name": "_name",
+                "date_added": "_date_added",
+                "file_path": "_file_path",
+                "locked": "_locked"
+            },
+            "mod1": {
+                "name": "",
+                "date_added": "",
+                "file_path": "",
+                "locked": ""
+            }
+        },
+        "GTAV": {
+            "slot1": {
+                "name": "",
+                "date": "",
+                "file_path": ""
+            },
+            "slot2": {
+                "name": "",
+                "date": "",
+                "file_path": ""
+            },
+            "slot3": {
+                "name": "",
+                "date": "",
+                "file_path": ""
+            },
+            "slot4": {
+                "name": "",
+                "date": "",
+                "file_path": ""
+            },
+        }
+    }
+}
