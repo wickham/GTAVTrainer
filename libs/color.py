@@ -1,16 +1,4 @@
 #!/usr/bin/python
-"""Color codes for terminal output.
-
-    re = (?:(?:(?:\\033\[)([0-3]|(?:5)))\;((?:[3][0-7]))\;((?:[4][0-7]m))((?:.*))((?:\\033\[0;37;40m)))
-
-    group 0 = Full Match
-    group 1 = Style
-    group 2 = Color
-    group 3 = Background
-    group 4 = String
-    group 5 = End Style
-"""
-
 import re
 import textwrap
 
@@ -97,6 +85,16 @@ def reg_checker(text, debugger=False):
     :param debugger: Boolean (defaults 'False') for enabling debugger messages.
 
     :returns True: Boolean (defaults 'True') if text change was made.
+
+    :notes: Expression used:
+        (?:(?:(?:\\033\[)([0-3]|(?:5)))\;((?:[3][0-7]))\;((?:[4][0-7]m))((?:.*))((?:\\033\[0;37;40m)))
+
+        group 0 = Full Match
+        group 1 = Style
+        group 2 = Color
+        group 3 = Background
+        group 4 = String
+        group 5 = End Style
     """
 
     if not text:
@@ -117,20 +115,20 @@ def reg_checker(text, debugger=False):
 
     if debugger:
         wrapped_text = textwrap.TextWrapper(width=57, replace_whitespace=False).wrap(text=grouped)
-        print(wrapped_text)
         print(" {:-^60}\n".format(" Style Guide "))
         print(" {: <30}".format(" Grouped: "))
         for line in wrapped_text:
             if line:
                 print(" {: >59}".format(line))
+
         print(" {: <30}{: >29}".format(" Style: ", style))
         print(" {: <30}{: >29}".format(" Color: ", color))
         print(" {: <30}{: >29}".format(" Background: ", background))
         print(" {: <30}{: >29}\n".format(" Closing Style: ", end_style))
-
         print(" {:-^60}\n".format(" Text "))
         for line in textwrap.TextWrapper(width=58).wrap(text=text):
             print(" {: >59}".format(line))
+
     return True
 
 
@@ -157,7 +155,9 @@ def terminal_text_effect(text, **kwargs):
     background = text_background()
     begin_style = "\\033["
     end_style = "\\033[0;37;40m"
-
+    if not text:
+        print("No changes were made.")
+        return
     if not kwargs.items():
         print("No changes were made.")
     for key, value in kwargs.items():
