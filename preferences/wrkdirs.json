@@ -5,20 +5,25 @@
     },
     "$$BACKUPS": {
         "MODS": {
-            "mod0": {
+            "_mod0": {
                 "name": "_name",
-                "date_added": "_date_added",
+                "date": "_date",
                 "file_path": "_file_path",
                 "locked": "_locked"
             },
             "mod1": {
                 "name": "",
-                "date_added": "",
+                "date": "",
                 "file_path": "",
                 "locked": ""
             }
         },
         "GTAV": {
+            "_slot0": {
+                "name": "_name",
+                "date": "_date",
+                "file_path": "_file_path"
+            },
             "slot1": {
                 "name": "",
                 "date": "",
