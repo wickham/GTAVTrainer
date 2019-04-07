@@ -10,14 +10,36 @@ TRAINER_DIR = ''
 GTA_DIR = ''
 
 
-def set_directory(working_file):
-    with open(working_file, 'r') as file:
-        json_args = json.load(file)
-    for key in json_args.keys():
-        if key == "$$DIRECTORY":
-            print("{}".format(key.value()))
-    file.close()
-    return
+def set_preferences():
+    # root_path = os.getcwd()
+    pref_file = input("""Drag file here or manually type out the path,\n
+        Press \'\033[1;32;40mEnter {RESET}\' to continue...\n
+        \n::""").replace("{RESET}", Style.RESET_ALL)
+    clear()
+    if not pref_file:
+        return
+    response = input("""Is this the correct path?\n
+    {}\n[ y ] or [ n ]: """)
+    if response == "y":
+        clear()
+        print("this")
+    elif response == "n":
+        clear()
+        set_preferences()
+    else:
+        return
+    # filter = "JSON file (*.json)|*.json|All Files (*.*)|*.*||"
+    # json_args = json.dumps(pref_file)
+    #
+    # if filename:
+    #     with open(filename, 'r') as file:
+    #         json_args = json.load(file)
+    #         file.close()
+    # for key in json_args.keys():
+    #     if key == "$$DIRECTORY":
+    #         print("{}".format(key.value()))
+    # file.close()
+    # return
 
 
 def read_pref():
@@ -42,7 +64,7 @@ def read_pref():
     # file.close()
     return pref_file
 
-## Text menu in Python
+
 def clear():
     if os.name == 'nt':
         _ = os.system('cls')
