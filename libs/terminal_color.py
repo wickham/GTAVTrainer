@@ -1,7 +1,10 @@
 #!/usr/bin/python
 import re
 import textwrap
+import ctypes
 
+kernel32 = ctypes.windll.kernel32
+kernel32.SetConsoleMode(kernel32.GetStdHandle(-11), 7)
 
 class text_style:
     """Class for converting style string and returning ANSI code."""
@@ -96,22 +99,29 @@ def reg_checker(text, debugger=False):
         group 4 = String
         group 5 = End Style
     """
+    grouped = text
+    style = ""
+    color = ""
+    background = ""
+    end_style = ""
 
     if not text:
         return False
-    matchObj = re.match(r'(?:(?:(?:\\033\[)([0-3]|(?:5)))\;((?:[3][0-7]))\;((?:[4][0-7]m))((?:.*))((?:\\033\[0;37;40m)))', text)
-    if matchObj.group():
-        grouped = matchObj.group()
-    if matchObj.group(1):
-        style = matchObj.group(1)
-    if matchObj.group(2):
-        color = matchObj.group(2)
-    if matchObj.group(3):
-        background = matchObj.group(3)
-    if matchObj.group(4):
-        text = matchObj.group(4)
-    if matchObj.group(5):
-        end_style = matchObj.group(5)
+    else:
+        matchObj = re.match(r'(?:(?:(?:\\033\[)([0-3]|(?:5)))\;((?:[3][0-7]))\;((?:[4][0-7]m))((?:.*))((?:\\033\[0m)))', text)
+        print(matchObj)
+    if matchObj:
+        grouped = matchObj.group(0)
+        if matchObj.group(1):
+            style = matchObj.group(1)
+        if matchObj.group(2):
+            color = matchObj.group(2)
+        if matchObj.group(3):
+            background = matchObj.group(3)
+        if matchObj.group(4):
+            text = matchObj.group(4)
+        if matchObj.group(5):
+            end_style = matchObj.group(5)
 
     if debugger:
         wrapped_text = textwrap.TextWrapper(width=57, replace_whitespace=False).wrap(text=grouped)
@@ -148,35 +158,46 @@ def terminal_text_effect(text, **kwargs):
 
     :returns result: String containing the ANSI coded style.
     """
-
     debugger = False
-    style = text_style()
-    color = text_color()
-    background = text_background()
+    style = text_style().none()
+    color = text_color().white()
+    background = text_background().black()
     begin_style = "\\033["
-    end_style = "\\033[0;37;40m"
+    end_style = "\\033[0m"
     if not text:
         print("No changes were made.")
         return
     if not kwargs.items():
-        print("No changes were made.")
+        return text
     for key, value in kwargs.items():
         if key == "style":
-            style = getattr(style, value)()
+            try:
+                style = getattr(text_style(), value)()
+            except Exception as err:
+                print("'{}': invalid style given with error: {}".format(value, err))
         elif key == "color":
-            color = getattr(color, value)()
+            try:
+                color = getattr(text_color(), value)()
+            except Exception as err:
+                print("'{}': invalid style given with error: {}".format(value, err))
         elif key == "background":
-            background = getattr(background, value)()
+            try:
+                background = getattr(text_background(), value)()
+            except Exception as err:
+                print("'{}': invalid style given with error: {}".format(value, err))
         elif key == "end_style":
-            end_style = getattr(end_style, value)()
+            end_style = value
         elif key == "debugger":
-            debugger = value
+            try:
+                debugger = value
+            except Exception as err:
+                print("'{}': invalid style given with error: {}".format(value, err))
+                debugger = False
         else:
             print("INVALID KWARG: {}={}".format(key, value))
-            return
 
     result = (begin_style + style + ";" + color + ";" + background + text + end_style)
     if not reg_checker(result, debugger):
         print("No changes were made.")
-
+        return
     return result
